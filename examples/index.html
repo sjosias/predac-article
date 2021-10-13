@@ -19,10 +19,8 @@
   <script src="template.v2.js"></script>
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
-   <script src="https://code.create3000.de/x_ite/latest/dist/x_ite.min.js"></script>
-  <script src="https://raw.githack.com/andreasplesch/x_ite_dom/master/latest/x_ite_dom.js"></script>
-  <link rel="stylesheet" href="https://code.create3000.de/x_ite/latest/dist/x_ite.css" />
-  <script src="https://raw.githack.com/jamesleesaunders/d3-x3d/master/dist/d3-x3d.js"></script></script>
+  <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf8">
 </head>
@@ -114,46 +112,43 @@
       
       </script>
 
+      <div id="myDiv" style="width:600px;height:250px;"></div>
+
+      <script>
+       d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv', function(err, rows){
+function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+}
+
+var z_data=[ ]
+for(i=0;i<24;i++)
+{
+  z_data.push(unpack(rows,i));
+}
+
+var data = [{
+           z: z_data,
+           type: 'surface'
+        }];
+
+var layout = {
+  title: 'Mt Bruno Elevation',
+  autosize: false,
+  width: 500,
+  height: 500,
+  margin: {
+    l: 65,
+    r: 50,
+    b: 65,
+    t: 90,
+  }
+};
+Plotly.newPlot('myDiv', data, layout);
+});
 
 
+      </script>
     
-
-    <X3DCanvas id="chartholder" style="width: 500px; height: 500px;"></X3DCanvas>
-
-    <script>
-            // Select chartholder
-      var chartHolder = d3.select("#chartholder");
-
-      // Generate some data
-      var myData = [
-        {
-          key: "UK",
-          values: [
-            { key: "Apples", value: 9 },
-            { key: "Oranges", value: 3 },
-            { key: "Pears", value: 5 },
-            { key: "Bananas", value: 7 }
-          ]
-        },
-        {
-          key: "France",
-          values: [
-            { key: "Apples", value: 5 },
-            { key: "Oranges", value: 4 },
-            { key: "Pears", value: 6 },
-            { key: "Bananas", value: 2 }
-          ]
-        }
-      ];
-
-      // Declare the chart component
-      var myChart = d3.x3d.chart.barChartMultiSeries();
-
-      // Attach chart and data to the chartholder
-      chartHolder
-        .datum(myData)
-        .call(myChart);
-    </script>
 
     <d-math block>
       c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
