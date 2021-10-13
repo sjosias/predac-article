@@ -17,6 +17,12 @@
 
 <head>
   <script src="template.v2.js"></script>
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+   <script src="https://code.create3000.de/x_ite/latest/dist/x_ite.min.js"></script>
+  <script src="https://raw.githack.com/andreasplesch/x_ite_dom/master/latest/x_ite_dom.js"></script>
+  <link rel="stylesheet" href="https://code.create3000.de/x_ite/latest/dist/x_ite.css" />
+  <script src="https://raw.githack.com/jamesleesaunders/d3-x3d/master/dist/d3-x3d.js"></script></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf8">
 </head>
@@ -25,7 +31,7 @@
   <!-- <distill-header></distill-header> -->
   <d-front-matter>
     <script id='distill-front-matter' type="text/json">{
-    "title": "Cartesian vectors one two three",
+    "title": "Coordinate direction angles and a dot product application",
     "description": "Although \" extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.",
     "published": "October 15, 2021",
     "authors": [
@@ -45,7 +51,7 @@
   <d-title>
     <!-- <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
         style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure> -->
-    <p>A short introduction to visualising cartesian vectors and their dot-product</p>
+    <p>Coordinate direction angles</p>
   </d-title>
   <d-byline></d-byline>
   <d-article>
@@ -54,6 +60,100 @@
     <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just
       using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
     <aside>Some text in an aside, margin notes, etc...</aside>
+
+    <!-- Add a svg area, empty -->
+    <div id="scatter_area"></div>
+    
+
+    <script>
+
+      // set the dimensions and margins of the graph
+      var margin = {top: 10, right: 40, bottom: 30, left: 30},
+          width = 450 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
+      
+      // append the svg object to the body of the page
+      var svG = d3.select("#scatter_area")
+        .append("svg")
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+      
+      // Create data
+      var data = [ {x:10, y:20}, {x:40, y:90}, {x:80, y:50} ]
+      
+      // X scale and Axis
+      var x = d3.scaleLinear()
+          .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
+          .range([0, width]);       // This is the corresponding value I want in Pixel
+      svG
+        .append('g')
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+      
+      // X scale and Axis
+      var y = d3.scaleLinear()
+          .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
+          .range([height, 0]);       // This is the corresponding value I want in Pixel
+      svG
+        .append('g')
+        .call(d3.axisLeft(y));
+      
+      // Add 3 dots for 0, 50 and 100%
+      svG
+        .selectAll("whatever")
+        .data(data)
+        .enter()
+        .append("circle")
+          .attr("cx", function(d){ return x(d.x) })
+          .attr("cy", function(d){ return y(d.y) })
+          .attr("r", 7)
+      
+      
+      </script>
+
+
+
+    
+
+    <X3DCanvas id="chartholder" style="width: 500px; height: 500px;"></X3DCanvas>
+
+    <script>
+            // Select chartholder
+      var chartHolder = d3.select("#chartholder");
+
+      // Generate some data
+      var myData = [
+        {
+          key: "UK",
+          values: [
+            { key: "Apples", value: 9 },
+            { key: "Oranges", value: 3 },
+            { key: "Pears", value: 5 },
+            { key: "Bananas", value: 7 }
+          ]
+        },
+        {
+          key: "France",
+          values: [
+            { key: "Apples", value: 5 },
+            { key: "Oranges", value: 4 },
+            { key: "Pears", value: 6 },
+            { key: "Bananas", value: 2 }
+          ]
+        }
+      ];
+
+      // Declare the chart component
+      var myChart = d3.x3d.chart.barChartMultiSeries();
+
+      // Attach chart and data to the chartholder
+      chartHolder
+        .datum(myData)
+        .call(myChart);
+    </script>
 
     <d-math block>
       c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
@@ -66,7 +166,7 @@
     <a class="marker" href="#section-1.1" id="section-1.1"><span>1.1</span></a>
     <h3>Citations</h3>
     <p>
-      <d-slider style="width: 200px;"></d-slider>
+      <d-slider style="width: 300px;"></d-slider>
     </p>
     <p>We can<d-cite bibtex-key="mercier2011humans"></d-cite> also cite <d-cite
         key="gregor2015draw,mercier2011humans,openai2018charter"></d-cite> external publications. <d-cite
@@ -79,7 +179,7 @@
           key='gregor2015draw'></d-cite>!</d-footnote> as well.</p>
     <a class="marker" href="#section-2" id="section-2"><span>2</span></a>
     
-    <h2>Vector dot-product</h2>
+    <h2>Dot product</h2>
     <p>Some inline javascript:<d-code language="javascript">var x = 25;</d-code>. And here's a javascript code block.
     </p>
     <d-code block language="javascript">
