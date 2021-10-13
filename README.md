@@ -1,13 +1,7 @@
-# Distill Template
+# Cartesian vectors
 
-This is the repository for the Distill web framework. 
+This is an interactive article on cartesian vectors based on the [Distill web framework](https://github.com/distillpub/template)
 
-## Contributing
-
-
-To give feedback, report a bug, or request a feature, please open an issue.
-
-To contribute a change, [check out the contributing guide](CONTRIBUTING.md).
 
 ### Local Development
 
