@@ -63,116 +63,114 @@
     <div id='myDiv' style='height: 500px;width: 750px;'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
       
-
-
-var data=[
-  {
-     opacity:1,
-     type: 'scatter3d',
-     mode: 'markers+text',
-     x: [3],
-     y: [4],
-     z: [7],
-     marker: {
-       size: 4,
-       symbol: "square",
-     },
-     text: "F",
-    },
-    {
-     opacity:1,
-     type: 'scatter3d',
-     mode: 'lines',
-     x: [0,3],
-     y: [0,4],
-     z: [0,7],
-     line: {
-       width: 4,
-       color:2,
-     },
-    },
-    {
-     opacity: 1,
-     type: 'scatter3d',
-     x: [-10,10],
-     y: [0,0],
-     z: [0,0],
-     mode: 'lines+text',
-     line: {
-       width: 6,
-       color:'rgb(0,0,0)',       
-     },
-     text: "x"
-    },
-    {
-     opacity: 1,
-     type: 'scatter3d',
-     x: [0,0],
-     y: [-10,10],
-     z: [0,0],
-     mode: 'lines+text',
-     line: {
-       width: 6,
-       color:'rgb(0,0,0)',
-     },
-     text: "y",
-    },
-    {
-     opacity: 1,
-     type: 'scatter3d',
-     x: [0,0],
-     y: [0,0],
-     z: [-10,10],
-     mode: 'lines+text',
-     line: {
-       width: 6,
-       color:'rgb(0,0,0)',
-     },
-     text: 'z',
-     textposition:'left'
-    }
-];
-var layout = {
-  margin: {
-    t:0,
-    b:0,
-    l:0,
-    r:0
-  },
-  showlegend: false,
-  scene:{
-	 aspectmode: "manual",
-   aspectratio: {
-     x: 1, y: 1, z: 1,
-    },
-   xaxis: {
-    nticks: 0,
-    range: [-10, 10],
-    showgrid: false,
-    showlines: false,
-    showticklabels: false,
-    zeroline: false,
-    title:''
-  },
-   yaxis: {
-    nticks: 0,
-    range: [-10, 10],
-    showgrid: false,
-    showlines: false,
-    showticklabels: false,
-    zeroline: false,
-    title:''
-  },
-   zaxis: {
-   range: [-10, 10],
-   showgrid: false,
-   showlines: false,
-   showticklabels: false,
-   zeroline: false,
-   title:''
-  }},
-};
-Plotly.newPlot('myDiv', data, layout, {displayModeBar: false});
+        var data=[
+          {
+            opacity:1,
+            type: 'scatter3d',
+            mode: 'markers+text',
+            x: [3],
+            y: [4],
+            z: [7],
+            marker: {
+              size: 4,
+              symbol: "square",
+            },
+            text: "F",
+            },
+            {
+            opacity:1,
+            type: 'scatter3d',
+            mode: 'lines',
+            x: [0,3],
+            y: [0,4],
+            z: [0,7],
+            line: {
+              width: 4,
+              color:2,
+            },
+            },
+            {
+            opacity: 1,
+            type: 'scatter3d',
+            x: [-10,10],
+            y: [0,0],
+            z: [0,0],
+            mode: 'lines+text',
+            line: {
+              width: 6,
+              color:'rgb(0,0,0)',       
+            },
+            text: "x"
+            },
+            {
+            opacity: 1,
+            type: 'scatter3d',
+            x: [0,0],
+            y: [-10,10],
+            z: [0,0],
+            mode: 'lines+text',
+            line: {
+              width: 6,
+              color:'rgb(0,0,0)',
+            },
+            text: "y",
+            },
+            {
+            opacity: 1,
+            type: 'scatter3d',
+            x: [0,0],
+            y: [0,0],
+            z: [-10,10],
+            mode: 'lines+text',
+            line: {
+              width: 6,
+              color:'rgb(0,0,0)',
+            },
+            text: 'z',
+            textposition:'left'
+            }
+        ];
+        var layout = {
+          margin: {
+            t:0,
+            b:0,
+            l:0,
+            r:0
+          },
+          showlegend: false,
+          scene:{
+          aspectmode: "manual",
+          aspectratio: {
+            x: 1, y: 1, z: 1,
+            },
+          xaxis: {
+            nticks: 0,
+            range: [-10, 10],
+            showgrid: false,
+            showlines: false,
+            showticklabels: false,
+            zeroline: false,
+            title:''
+          },
+          yaxis: {
+            nticks: 0,
+            range: [-10, 10],
+            showgrid: false,
+            showlines: false,
+            showticklabels: false,
+            zeroline: false,
+            title:''
+          },
+          zaxis: {
+          range: [-10, 10],
+          showgrid: false,
+          showlines: false,
+          showticklabels: false,
+          zeroline: false,
+          title:''
+          }},
+        };
+        Plotly.newPlot('myDiv', data, layout, {displayModeBar: false});
   
 
     </script>
