@@ -19,7 +19,8 @@
   <script src="template.v2.js"></script>
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+  <script src='https://cdn.plot.ly/plotly-2.4.2.min.js'></script>
+
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf8">
@@ -59,97 +60,122 @@
       using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
     <aside>Some text in an aside, margin notes, etc...</aside>
 
-    <!-- Add a svg area, empty -->
-    <div id="scatter_area"></div>
-    
-
+    <div id='myDiv' style='height: 500px;width: 750px;'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
+      
 
-      // set the dimensions and margins of the graph
-      var margin = {top: 10, right: 40, bottom: 30, left: 30},
-          width = 450 - margin.left - margin.right,
-          height = 400 - margin.top - margin.bottom;
-      
-      // append the svg object to the body of the page
-      var svG = d3.select("#scatter_area")
-        .append("svg")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-          .attr("transform",
-                "translate(" + margin.left + "," + margin.top + ")");
-      
-      // Create data
-      var data = [ {x:10, y:20}, {x:40, y:90}, {x:80, y:50} ]
-      
-      // X scale and Axis
-      var x = d3.scaleLinear()
-          .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
-          .range([0, width]);       // This is the corresponding value I want in Pixel
-      svG
-        .append('g')
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
-      
-      // X scale and Axis
-      var y = d3.scaleLinear()
-          .domain([0, 100])         // This is the min and the max of the data: 0 to 100 if percentages
-          .range([height, 0]);       // This is the corresponding value I want in Pixel
-      svG
-        .append('g')
-        .call(d3.axisLeft(y));
-      
-      // Add 3 dots for 0, 50 and 100%
-      svG
-        .selectAll("whatever")
-        .data(data)
-        .enter()
-        .append("circle")
-          .attr("cx", function(d){ return x(d.x) })
-          .attr("cy", function(d){ return y(d.y) })
-          .attr("r", 7)
-      
-      
-      </script>
 
-      <div id="myDiv" style="width:600px;height:250px;"></div>
-
-      <script>
-       d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/api_docs/mt_bruno_elevation.csv', function(err, rows){
-function unpack(rows, key) {
-  return rows.map(function(row) { return row[key]; });
-}
-
-var z_data=[ ]
-for(i=0;i<24;i++)
-{
-  z_data.push(unpack(rows,i));
-}
-
-var data = [{
-           z: z_data,
-           type: 'surface'
-        }];
-
+var data=[
+  {
+     opacity:1,
+     type: 'scatter3d',
+     mode: 'markers+text',
+     x: [3],
+     y: [4],
+     z: [7],
+     marker: {
+       size: 4,
+       symbol: "square",
+     },
+     text: "F",
+    },
+    {
+     opacity:1,
+     type: 'scatter3d',
+     mode: 'lines',
+     x: [0,3],
+     y: [0,4],
+     z: [0,7],
+     line: {
+       width: 4,
+       color:2,
+     },
+    },
+    {
+     opacity: 1,
+     type: 'scatter3d',
+     x: [-10,10],
+     y: [0,0],
+     z: [0,0],
+     mode: 'lines+text',
+     line: {
+       width: 6,
+       color:'rgb(0,0,0)',       
+     },
+     text: "x"
+    },
+    {
+     opacity: 1,
+     type: 'scatter3d',
+     x: [0,0],
+     y: [-10,10],
+     z: [0,0],
+     mode: 'lines+text',
+     line: {
+       width: 6,
+       color:'rgb(0,0,0)',
+     },
+     text: "y",
+    },
+    {
+     opacity: 1,
+     type: 'scatter3d',
+     x: [0,0],
+     y: [0,0],
+     z: [-10,10],
+     mode: 'lines+text',
+     line: {
+       width: 6,
+       color:'rgb(0,0,0)',
+     },
+     text: 'z',
+     textposition:'left'
+    }
+];
 var layout = {
-  title: 'Mt Bruno Elevation',
-  autosize: false,
-  width: 500,
-  height: 500,
   margin: {
-    l: 65,
-    r: 50,
-    b: 65,
-    t: 90,
-  }
+    t:0,
+    b:0,
+    l:0,
+    r:0
+  },
+  showlegend: false,
+  scene:{
+	 aspectmode: "manual",
+   aspectratio: {
+     x: 1, y: 1, z: 1,
+    },
+   xaxis: {
+    nticks: 0,
+    range: [-10, 10],
+    showgrid: false,
+    showlines: false,
+    showticklabels: false,
+    zeroline: false,
+    title:''
+  },
+   yaxis: {
+    nticks: 0,
+    range: [-10, 10],
+    showgrid: false,
+    showlines: false,
+    showticklabels: false,
+    zeroline: false,
+    title:''
+  },
+   zaxis: {
+   range: [-10, 10],
+   showgrid: false,
+   showlines: false,
+   showticklabels: false,
+   zeroline: false,
+   title:''
+  }},
 };
-Plotly.newPlot('myDiv', data, layout);
-});
+Plotly.newPlot('myDiv', data, layout, {displayModeBar: false});
+  
 
-
-      </script>
-    
-
+    </script>
     <d-math block>
       c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
     </d-math>
