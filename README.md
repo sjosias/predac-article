@@ -2,6 +2,8 @@
 
 This is an interactive article on cartesian vectors based on the [Distill web framework](https://github.com/distillpub/template)
 
+http://ich.deanmcnamee.com/pre3d/
+
 
 ### Local Development
 
