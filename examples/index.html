@@ -60,7 +60,8 @@
       using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
     <aside>Some text in an aside, margin notes, etc...</aside>
 
-    <div id='myDiv' style='height: 500px;width: 750px;'><!-- Plotly chart will be drawn inside this DIV --></div>
+    
+    <div class='.l-screen' id='myDiv'  style='height: 700px;width: 900px; border-style: solid;'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
 
       
@@ -261,7 +262,7 @@
 
     <p> Adjust Value X</p>
     <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="get_min() " oninput="adjustValueX(this.value)">
+        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" default="3" value="get_min() " oninput="adjustValueX(this.value)">
         <output name="amount" for="rangeInput"></output>
     </form>
     <d-math block>
