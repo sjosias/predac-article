@@ -59,9 +59,26 @@
     <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just
       using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
     <aside>Some text in an aside, margin notes, etc...</aside>
+    <p> Adjust Value X</p>
+    <form oninput="amount.value=rangeInput.value">
+        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="3"oninput="adjustValueX(this.value)">
+        <output name="amount" for="rangeInput"></output>
+    </form>
+    <p> Adjust Value Y</p>
+    <form oninput="amount.value=rangeInput.value">
+        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="4 " oninput="adjustValueY(this.value)">
+        <output name="amount" for="rangeInput"></output>
+    </form>
+    <p> Adjust Value Z</p>
+    <form oninput="amount.value=rangeInput.value">
+        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="7" oninput="adjustValueZ(this.value)">
+        <output name="amount" for="rangeInput"></output>
+    </form>
 
-    
-    <div class='.l-screen' id='myDiv'  style='height: 400px;width: 700px; border-style: solid;'><!-- Plotly chart will be drawn inside this DIV --></div>
+   
+
+   
+    <div class='.l-screen' id='myDiv'  style='border-style: solid;'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
 
       
@@ -125,43 +142,83 @@
             {
             opacity: 1,
             type: 'scatter3d',
-            x: [-10,10],
+            x: [0,10],
             y: [0,0],
             z: [0,0],
             mode: 'lines+text',
             line: {
-              width: 6,
+              width: 4,
               color:'rgb(0,0,0)',       
             },
-            text: "x"
+            text: ["","x"]
+            },
+            {
+            opacity: 1,
+            type: 'scatter3d',
+            x: [-10,0],
+            y: [0,0],
+            z: [0,0],
+            mode: 'lines',
+            line: {
+              width: 4,
+              color:'rgb(0,0,0)',
+              dash: 'longdash'       
+              },
             },
             {
             opacity: 1,
             type: 'scatter3d',
             x: [0,0],
-            y: [-10,10],
+            y: [0,10],
             z: [0,0],
             mode: 'lines+text',
             line: {
-              width: 6,
+              width: 4,
               color:'rgb(0,0,0)',
             },
-            text: "y",
+            text: ["", "y"],
+            },
+            {
+            opacity: 1,
+            type: 'scatter3d',
+            x: [0,0],
+            y: [-10,0],
+            z: [0,0],
+            mode: 'lines',
+            line: {
+              width: 4,
+              color:'rgb(0,0,0)',
+              dash: 'longdash'       
+              },
             },
             {
             opacity: 1,
             type: 'scatter3d',
             x: [0,0],
             y: [0,0],
-            z: [-10,10],
+            z: [0,10],
             mode: 'lines+text',
             line: {
-              width: 6,
+              width: 4,
               color:'rgb(0,0,0)',
             },
-            text: 'z',
+            text: ["",'z'],
             textposition:'left'
-            }
+            },
+            {
+            opacity: 1,
+            type: 'scatter3d',
+            x: [0,0],
+            y: [0,0],
+            z: [-10,0],
+            mode: 'lines',
+            line: {
+              width: 4,
+              color:'rgb(0,0,0)',
+              dash: 'longdash'       
+              },
+            },
+
         ];
         var layout = {
           margin: {
@@ -172,6 +229,14 @@
           },
           showlegend: false,
           scene:{
+          camera: {
+            center: {
+                  x: 0, y: 0, z: 0 }, 
+            eye: { 
+                  x: 0.8, y: 0.8, z: 0.8 }, 
+            up: {
+                  x: 0, y: 0, z: 1 }
+          },
           aspectmode: "manual",
           aspectratio: {
             x: 1, y: 1, z: 1,
@@ -203,7 +268,10 @@
           title:''
           }},
         };
-        Plotly.newPlot('myDiv', data, layout, {displayModeBar: false});
+
+        var config = {responsive: true, displayModeBar: false}
+
+        Plotly.newPlot('myDiv', data, layout, config);
   
         function adjustValueZ(value)
         {
@@ -248,112 +316,8 @@
             Plotly.restyle('myDiv', update, [0, 1, 2, 3, 4]);
         }
     </script>
-    <p> Adjust Value Z</p>
-    <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="get_min()" oninput="adjustValueZ(this.value)">
-        <output name="amount" for="rangeInput"></output>
-    </form>
-
-    <p> Adjust Value Y</p>
-    <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="get_min() " oninput="adjustValueY(this.value)">
-        <output name="amount" for="rangeInput"></output>
-    </form>
-
-    <p> Adjust Value X</p>
-    <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" default="3" value="get_min() " oninput="adjustValueX(this.value)">
-        <output name="amount" for="rangeInput"></output>
-    </form>
-    <d-math block>
-      c = \pm \sqrt{ \sum_{i=0}^{n}{a^{222} + b^2}}
-    </d-math>
-    <p>Math can also be quite involved:</p>
-    <d-math block>
-      \frac{1}{\Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{\frac25 \pi}} = 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}}
-      {1+\frac{e^{-6\pi}} {1+\frac{e^{-8\pi}} {1+\cdots} } } }
-    </d-math>
-    <a class="marker" href="#section-1.1" id="section-1.1"><span>1.1</span></a>
-    <h3>Citations</h3>
-    <p>
-      <d-slider style="width: 300px;"></d-slider>
-    </p>
-    <p>We can<d-cite bibtex-key="mercier2011humans"></d-cite> also cite <d-cite
-        key="gregor2015draw,mercier2011humans,openai2018charter"></d-cite> external publications. <d-cite
-        key="dong2014image,dumoulin2016guide,mordvintsev2015inceptionism"></d-cite>. We should also be testing footnotes
-      <d-footnote>This will become a hoverable footnote. This will become a hoverable footnote. This will become a
-        hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote. This will
-        become a hoverable footnote. This will become a hoverable footnote. This will become a hoverable footnote.
-      </d-footnote>. There are multiple footnotes, and they appear in the appendix<d-footnote>Given I have coded them
-        right. Also, here's math in a footnote: <d-math>c = \sum_0^i{x}</d-math>. Also, a citation. Box-ception<d-cite
-          key='gregor2015draw'></d-cite>!</d-footnote> as well.</p>
-    <a class="marker" href="#section-2" id="section-2"><span>2</span></a>
     
-    <h2>Dot product</h2>
-    <p>Some inline javascript:<d-code language="javascript">var x = 25;</d-code>. And here's a javascript code block.
-    </p>
-    <d-code block language="javascript">
-      var x = 25;
-      function(x){
-      return x * x;
-      }
-    </d-code>
-    <p>We also support python.</p>
-    <d-code block language="python">
-      # Python 3: Fibonacci series up to n
-      def fib(n):
-      a, b = 0, 1
-      while a < n: print(a, end=' ' ) a, b=b, a+b </d-code>
-        <p>And a table</p>
-        <table>
-          <thead>
-            <tr>
-              <th>First</th>
-              <th>Second</th>
-              <th>Third</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>23</td>
-              <td>654</td>
-              <td>23</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>54</td>
-              <td>34</td>
-            </tr>
-            <tr>
-              <td>234</td>
-              <td>54</td>
-              <td>23</td>
-            </tr>
-          </tbody>
-        </table>
-        <d-figure id="last-figure"></d-figure>
-        <script>
-          const figure = document.querySelector("d-figure#last-figure");
-          const initTag = document.createElement("span");
-          initTag.textContent = "initialized!"
-          figure.appendChild(initTag);
-          figure.addEventListener("ready", function () {
-            const initTag = figure.querySelector("span");
-            initTag.textContent = "ready"
-            console.log('ready')
-          });
-          figure.addEventListener("onscreen", function () {
-            const initTag = figure.querySelector("span");
-            initTag.textContent = "onscreen"
-            console.log('onscreen')
-          });
-          figure.addEventListener("offscreen", function () {
-            const initTag = figure.querySelector("span");
-            initTag.textContent = "offscreen!"
-            console.log('offscreen')
-          });
-        </script>
-        <p>That's it for the example article!</p>
+  
 
   </d-article>
 
