@@ -107,7 +107,8 @@
         var data=[
           {
             opacity:1,
-            showlegend: false,
+            showlegend: true,
+            name: "F = ?",
             type: 'scatter3d',
             mode: 'markers+text',
             x: [3],
@@ -136,14 +137,14 @@
             {
               type: "mesh3d",
               opacity: 0.2,
-              x: [0, 0, 3, 0],
+              x: [0, 3, 3, 0],
               y: [0, 0, 4, 0],
-              z: [0, 7, 7, 0],
+              z: [0, 0, 7, 0],
               i: [0, 0, 0, 1],
               j: [1, 2, 3, 2],
               k: [2, 3, 1, 3],
-              name: "gamma = 7",
-              showlegend: true,
+              name: "alpha = ?",
+              showlegend: true
             },
             {
               type: "mesh3d",
@@ -154,20 +155,20 @@
               i: [0, 0, 0, 1],
               j: [1, 2, 3, 2],
               k: [2, 3, 1, 3],
-              name: "beta = 4",
+              name: "beta = ?",
               showlegend: true
             },
             {
               type: "mesh3d",
               opacity: 0.2,
-              x: [0, 3, 3, 0],
+              x: [0, 0, 3, 0],
               y: [0, 0, 4, 0],
-              z: [0, 0, 7, 0],
+              z: [0, 7, 7, 0],
               i: [0, 0, 0, 1],
               j: [1, 2, 3, 2],
               k: [2, 3, 1, 3],
-              name: "alpha = 5",
-              showlegend: true
+              name: "gamma = ?",
+              showlegend: true,
             },
             {
             opacity: 1,
@@ -321,14 +322,28 @@
           return Math.round(Math.acos(component / magnitude)*180/Math.PI)
         }
   
+        function updateLegend(vector) {
+            mag = getMagnitude(vector)
+            alpha = getCoordDirAngle(vector[0], mag)
+            beta = getCoordDirAngle(vector[1], mag)
+            gamma = getCoordDirAngle(vector[2], mag)
+
+            var updateLegend = {
+              name : [
+                "F = " + vector[0] + "i + " + vector[1] + "j + " + vector [2] + "k",
+                "alpha = " + alpha,
+                "beta = " + beta,
+                "gamma = " + gamma, 
+              ]
+            }
+
+            Plotly.restyle('myDiv', updateLegend, [0, 2, 3, 4]);
+
+        }
         function adjustValueZ(value)
         {
             defaultVector = [defaultVector[0], defaultVector[1], parseInt(value)]
-            console.log(defaultVector)
-            mag = getMagnitude(defaultVector)
-            alpha = getCoordDirAngle(defaultVector[0], mag)
-            beta = getCoordDirAngle(defaultVector[1], mag)
-            gamma = getCoordDirAngle(defaultVector[2], mag)
+           
             var update = {
               z : [
                 [value], 
@@ -339,16 +354,15 @@
               ],
             }
 
+            updateLegend(defaultVector)
 
-            Plotly.restyle('myDiv', update, [0, 1, 2, 3, 4]);
+            Plotly.restyle('myDiv', update, [0, 1, 4, 3, 2]);
+
         }
         function adjustValueY(value)
         {
           defaultVector = [defaultVector[0], parseInt(value), defaultVector[2]]
-          mag = getMagnitude(defaultVector)
-          alpha = getCoordDirAngle(defaultVector[0], mag)
-          beta = getCoordDirAngle(defaultVector[1], mag)
-          gamma = getCoordDirAngle(defaultVector[2], mag)
+          
           var update = {
               y : [
                 [value], 
@@ -359,15 +373,14 @@
               ],
             }
 
-            Plotly.restyle('myDiv', update, [0, 1, 2, 3, 4]);
+            updateLegend(defaultVector)
+            Plotly.restyle('myDiv', update, [0, 1, 4, 3, 2]);
+
         }
         function adjustValueX(value)
         {
           defaultVector = [parseInt(value), defaultVector[1], defaultVector[2]]
-          mag = getMagnitude(defaultVector)
-          alpha = getCoordDirAngle(defaultVector[0], mag)
-          beta = getCoordDirAngle(defaultVector[1], mag)
-          gamma = getCoordDirAngle(defaultVector[2], mag)
+    
           var update = {
               x : [
                 [value], 
@@ -378,7 +391,8 @@
               ],
             }
 
-            Plotly.restyle('myDiv', update, [0, 1, 2, 3, 4]);
+            updateLegend(defaultVector)
+            Plotly.restyle('myDiv', update, [0, 1, 4, 3, 2]);
         }
     </script>
     
