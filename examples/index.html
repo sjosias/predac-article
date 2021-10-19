@@ -21,12 +21,22 @@
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_SVG">
 </script>
 <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf8">
+
+  <script type="text/bibliography">
+    @book{hibbeler2017,
+      title     = "Engineering Mechanics: Statics, 14th edition",
+      author    = "Russel Hibbeler",
+      year      = 2017,
+      publisher = "Pearson",
+      address   = "Essex"
+    }
+  </script>
 
   <style>
     .grid-container {
@@ -42,6 +52,13 @@
       /* font-size: 30px; */
       text-align: center;
     }
+
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
     </style>
 </head>
 
@@ -49,9 +66,9 @@
   <!-- <distill-header></distill-header> -->
   <d-front-matter>
     <script id='distill-front-matter' type="text/json">{
-    "title": "Coordinate direction angles and a dot product application",
+    "title": "Cartesian vectors and coordinate direction angles",
     "description": "Although \" extremely useful for visualizing high-dimensional data, t-SNE plots can sometimes be mysterious or misleading.",
-    "published": "October 15, 2021",
+    "published": "19 October, 2021",
     "authors": [
       {
         "author":"Shane Josias",
@@ -67,18 +84,70 @@
   }</script>
   </d-front-matter>
   <d-title>
-    <!-- <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
-        style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure> -->
-    <p>Coordinate direction angles</p>
+    <!-- <figure style="grid-column: page; margin: 1rem 0;"><img src="header.png"
+        style="width:50%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure> -->
+    <p>This article allows the reader to interactively manipulate components of a vector and observe the changes in the cordinate direction angles. 
+      It is my hope that it may provide an intuition about coordinate direction angles.</p>
   </d-title>
   <d-byline></d-byline>
 
-  <d-article>
-    <a class="marker" href="#section-1" id="section-1"><span>1</span></a>
-    <h2>What is a vector</h2>
-    <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just
-      using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
-    <aside>Some text in an aside, margin notes, etc...</aside>
+  <d-article >
+    <!-- <a class="marker" href="#section-1" id="section-1"><span>1</span></a> -->
+    <h1>Cartesian vectors recap</h1>
+  
+    <p>
+      A vector $$\mathbf{A}$$ can be represented in cartesian form as:
+      
+      <d-math block>
+         
+        \mathbf{A} = A_{x}\mathbf{i} + A_{y}\mathbf{j} + A_{z}\mathbf{k},
+      </d-math>
+
+      where $$A_x$$, $$A_y$$, and $$A_z$$ are the $$x$$, $$y$$, and $$z$$ components of the vector. We can also calculate a vector's magnitude using the following equation
+     
+
+      <d-math block>
+        A = \sqrt{A_{x}^2 + A_{y}^2 + A_{z}^2}.
+      </d-math>
+    
+    </p>
+
+    <h1>Coordinate direction angles</h1>
+
+    <p>
+     The direction of $$\mathbf{A}$$ can be defined by the coordinate direction angles $$\alpha$$, $$\beta$$ and $$\gamma$$, 
+     measured between the tail of $$\mathbf{A}$$ and the positive $$x$$, $$y$$, $$z$$ axes. Figure 2-26 in the textbook ilustrates this idea:
+
+     <figure style="margin: 1rem 0;">
+      <img class = "center" src="coordir.png"
+        style="width:30%; border: 1px solid rgba(0, 0, 0, 0.2);" />
+        <figcaption style="text-align: center; bottom: 0px; margin-top: 5px ;">Figure 2-26, taken from the Engineering Mechanics: Statics textbook by R.C. Hibbeler<dt-cite key="hibbeler2017"></dt-cite>.</figcaption>
+
+      </figure>
+       
+
+     To calculate the coordinate direction angles, we first obtain the directional cosines. 
+     <d-math block class = "center">    
+      \cos(\alpha) = \frac{A_x}{A}, \:\: \cos(\beta) = \frac{A_y}{A}, \:\: \cos(\gamma) = \frac{A_z}{A}. 
+    </d-math>
+
+  
+    Then we can take the inverse cosines to determine the angle. 
+
+    </p>
+    <p>
+    Let us now try and build an intuition about these coordinate direction angles, and how it relates to the components of a vector. The interactive 
+    diagram below plots a vector $$\mathbf{F}$$, and the planes in which the coordinate direction angles live. In the legend you will see the cartesian representation of $$\mathbf{F}$$, along with 
+    values for $$\alpha$$, $$\beta$$ and $$\gamma$$, rounded to the nearest integer. Try adjusting the components of $$\mathbf{F}$$ by moving the sliders and observe how the coordinate direction angles change in response.
+    You can also pan the diagram to visualise the planes from different perspectives. Here are some things to think about: 
+   
+    </p>
+    <p>
+      1. When is $$ 0 < \alpha < 90$$ and when is $$ 90 < \alpha < 180$$? <br>
+      2. What about $$\alpha=0, 90, 180$$? Do the same for $$\beta$$ and $$\gamma$$. <br>
+      3. Try to find a case where $$\alpha$$ remains fixed while changing the $$y$$ and $$z$$ components of $$\mathbf{F}$$. Why does this happen? <br>
+      4. For some practice, try to calculate the coordinate direction angles yourself, rounded to the nearest integer.
+    </p>
 
     <div class="grid-container">
       <p class = "grid-item"> adjust value $$x$$</p>
@@ -102,7 +171,7 @@
    
 
    
-    <div class='.l-screen' id='myDiv'  style='border-style: solid;'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div class='.l-screen' id='myDiv'  style='border: 1px solid rgba(0, 0, 0, 0.2);'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
 
         var defaultVector = [3,4,7]
@@ -399,18 +468,21 @@
         }
     </script>
     
-  
+    <aside>You may notice that the head of the vector has a dot instead of an arrow. This is a limitation of the library used.</aside>
+
+
 
   </d-article>
 
   <d-appendix>
 
     <h3>Contributions</h3>
-    <p>The article was created in full by Shane Josias. </p>
+    <p>The article was created in full by Shane Josias. The Distill web framework was used for styling. </p>
+
     <!-- <h3>Reviewers</h3> -->
     <!-- <p>Some text with links describing who reviewed the article.</p> -->
 
-    <!-- <d-bibliography src="bibliography.bib"></d-bibliography> -->
+    <d-bibliography src="bibliography.bib"></d-bibliography>
   </d-appendix>
 
   <!-- <distill-footer></distill-footer> -->
