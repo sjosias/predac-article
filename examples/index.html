@@ -21,7 +21,7 @@
   <!-- Load d3.js -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="text/javascript" async
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_SVG">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_SVG">
 </script>
 <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
 
@@ -69,16 +69,50 @@
   <d-title>
     <!-- <figure style="grid-column: page; margin: 1rem 0;"><img src="momentum.png"
         style="width:100%; border: 1px solid rgba(0, 0, 0, 0.2);" /></figure> -->
-    <p>Coordinate direction angles</p>
+    <p>This interactice article allows the reader to interactively manipulate components of a vector and observe the changes in the cordinate direction angles. 
+      It is my hope that it may provide a better intuition about the coordinate direction angles.</p>
   </d-title>
   <d-byline></d-byline>
 
   <d-article>
-    <a class="marker" href="#section-1" id="section-1"><span>1</span></a>
-    <h2>What is a vector</h2>
-    <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just
-      using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
-    <aside>Some text in an aside, margin notes, etc...</aside>
+    <!-- <a class="marker" href="#section-1" id="section-1"><span>1</span></a> -->
+    <h3>Cartesian vectors recap</h2>
+    <p>
+      A vector $$\mathbf{A}$$ can be represented in cartesian form as:
+      <d-math block>
+         
+        \mathbf{A} = A_{x}\mathbf{i} + A_{y}\mathbf{j} + A_{z}\mathbf{k},
+      </d-math>
+
+      where $$A_x$$, $$A_y$$, and $$A_z$$ are the $$x$$, $$y$$, and $$z$$ components of the vector. We can also calculate a vector's magnitude $$A$$, using the following equation
+     
+
+      <d-math block>
+        A = \sqrt{A_{x}^2 + A_{y}^2 + A_{z}^2}.
+      </d-math>
+    
+    </p>
+
+    <h3>Coordinate direction angles</h2>
+    <p>
+     The direction of $$\mathbf{A}$$ can be defined by using what is known as the coordinate direction angles $$\alpha$$, $$\beta$$, $$\gamma$$, 
+     measured betwen the tail of $$\mathbf{A}$$ and the positive $$x$$, $$y$$, $$z$$ axes. Figure 2-26 in the textbook ilustrates this idea.
+
+     To calculate the coordinate direction angles, we use the directional cosines. 
+     <d-math block>
+      \cos(\alpha) = \frac{A_x}{A}, \:\: \cos(\beta) = \frac{A_y}{A}, \:\: \cos(\gamma) = \frac{A_z}{A}. 
+    </d-math>
+    We can then take the inverse cosines to determine the angle. 
+
+    Let us know try and build an intuition about these coordinate direction angles, and how it relates to the components of a vector. The interactive 
+    diagram below plots a vector $$F$$, and the planes in which the coordinate directions live. In the legend you will see the current vector, along with 
+    values for each coordinate direction angle. Try adjusting the components of the vector by moving the sliders and observe how the coordinate direction angles change in response.
+    You can also pan the diagram to visualise the planes from different perspectives. Here are some questions to try and answer. <br><br>
+
+    When is $$ 90 < \alpha < 180$$? What about $$\alpha=0, 90, 180$$? Do the same for $$\beta$$ and $$\gamma$$.
+
+    </p>
+    <!-- <aside>Some text in an aside, margin notes, etc...</aside> -->
 
     <div class="grid-container">
       <p class = "grid-item"> adjust value $$x$$</p>
