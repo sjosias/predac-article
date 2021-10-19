@@ -24,6 +24,22 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="utf8">
+
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      /* background-color: #2196F3; */
+      padding: 10px;
+      margin: 0px;
+    }
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      /* padding: 20px; */
+      /* font-size: 30px; */
+      text-align: center;
+    }
+    </style>
 </head>
 
 <body>
@@ -53,27 +69,32 @@
     <p>Coordinate direction angles</p>
   </d-title>
   <d-byline></d-byline>
+
   <d-article>
     <a class="marker" href="#section-1" id="section-1"><span>1</span></a>
     <h2>What is a vector</h2>
     <p>Here's a test of an inline equation <d-math>c = a^2 + b^2</d-math>. Also with configurable katex standards just
       using inline '$' signs: $$x^2$$ And then there's a block equation:</p>
     <aside>Some text in an aside, margin notes, etc...</aside>
-    <p> Adjust Value X</p>
-    <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="3"oninput="adjustValueX(this.value)">
-        <output name="amount" for="rangeInput"></output>
-    </form>
-    <p> Adjust Value Y</p>
-    <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="4 " oninput="adjustValueY(this.value)">
-        <output name="amount" for="rangeInput"></output>
-    </form>
-    <p> Adjust Value Z</p>
-    <form oninput="amount.value=rangeInput.value">
-        <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="7" oninput="adjustValueZ(this.value)">
-        <output name="amount" for="rangeInput"></output>
-    </form>
+
+    <div class="grid-container">
+      <p class = "grid-item"> adjust value $$x$$</p>
+      <p class = "grid-item"> adjust value $$y$$</p>
+      <p class = "grid-item"> adjust value $$z$$</p>
+
+      <form class = "grid-item" oninput="amount.value=rangeInput.value">
+          <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="3"oninput="adjustValueX(this.value)">
+          <output name="amount" for="rangeInput"></output>
+      </form>
+      <form class = "grid-item" oninput="amount.value=rangeInput.value">
+          <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="4" oninput="adjustValueY(this.value)">
+          <output name="amount" for="rangeInput"></output>
+      </form>
+      <form class = "grid-item" oninput="amount.value=rangeInput.value">
+          <input type="range" id="rangeInput" name="rangeInput" min="-10" max="10" value="7" oninput="adjustValueZ(this.value)">
+          <output name="amount" for="rangeInput"></output>
+      </form>
+  </div>
 
    
 
@@ -81,11 +102,12 @@
     <div class='.l-screen' id='myDiv'  style='border-style: solid;'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
 
-      
+        var defaultVector = [3,4,7]
       
         var data=[
           {
             opacity:1,
+            showlegend: false,
             type: 'scatter3d',
             mode: 'markers+text',
             x: [3],
@@ -100,6 +122,7 @@
             },
             {
               opacity:1,
+              showlegend: false,
               type: 'scatter3d',
               mode: 'lines',
               x: [0,3],
@@ -112,36 +135,43 @@
             },
             {
               type: "mesh3d",
-              opacity: 0.1,
+              opacity: 0.2,
               x: [0, 0, 3, 0],
               y: [0, 0, 4, 0],
               z: [0, 7, 7, 0],
               i: [0, 0, 0, 1],
               j: [1, 2, 3, 2],
               k: [2, 3, 1, 3],
+              name: "gamma = 7",
+              showlegend: true,
             },
             {
               type: "mesh3d",
-              opacity: 0.1,
+              opacity: 0.2,
               x: [0, 0, 3, 0],
               y: [0, 4, 4, 0],
               z: [0, 0, 7, 0],
               i: [0, 0, 0, 1],
               j: [1, 2, 3, 2],
               k: [2, 3, 1, 3],
+              name: "beta = 4",
+              showlegend: true
             },
             {
               type: "mesh3d",
-              opacity: 0.1,
+              opacity: 0.2,
               x: [0, 3, 3, 0],
               y: [0, 0, 4, 0],
               z: [0, 0, 7, 0],
               i: [0, 0, 0, 1],
               j: [1, 2, 3, 2],
               k: [2, 3, 1, 3],
+              name: "alpha = 5",
+              showlegend: true
             },
             {
             opacity: 1,
+            showlegend: false,
             type: 'scatter3d',
             x: [0,10],
             y: [0,0],
@@ -155,6 +185,7 @@
             },
             {
             opacity: 1,
+            showlegend: false,
             type: 'scatter3d',
             x: [-10,0],
             y: [0,0],
@@ -168,6 +199,7 @@
             },
             {
             opacity: 1,
+            showlegend: false,
             type: 'scatter3d',
             x: [0,0],
             y: [0,10],
@@ -181,6 +213,7 @@
             },
             {
             opacity: 1,
+            showlegend: false,
             type: 'scatter3d',
             x: [0,0],
             y: [-10,0],
@@ -194,6 +227,7 @@
             },
             {
             opacity: 1,
+            showlegend: false,
             type: 'scatter3d',
             x: [0,0],
             y: [0,0],
@@ -208,6 +242,7 @@
             },
             {
             opacity: 1,
+            showlegend: false,
             type: 'scatter3d',
             x: [0,0],
             y: [0,0],
@@ -228,7 +263,7 @@
             l:0,
             r:0
           },
-          showlegend: false,
+          showlegend: true,
           scene:{
           camera: {
             center: {
@@ -273,9 +308,27 @@
         var config = {responsive: true, displayModeBar: false}
 
         Plotly.newPlot('myDiv', data, layout, config);
+
+        function getMagnitude(vector) {
+          // console.log(Math.pow(vector[0], 2))
+          // console.log(Math.pow(vector[2], 2))
+          // console.log(Math.pow(vector[3], 2))
+          // console.log(vector[3])
+          return Math.sqrt(Math.pow(vector[0], 2) + Math.pow(vector[1], 2) + Math.pow(vector[2], 2))
+        }
+
+        function getCoordDirAngle(component, magnitude) {
+          return Math.round(Math.acos(component / magnitude)*180/Math.PI)
+        }
   
         function adjustValueZ(value)
         {
+            defaultVector = [defaultVector[0], defaultVector[1], parseInt(value)]
+            console.log(defaultVector)
+            mag = getMagnitude(defaultVector)
+            alpha = getCoordDirAngle(defaultVector[0], mag)
+            beta = getCoordDirAngle(defaultVector[1], mag)
+            gamma = getCoordDirAngle(defaultVector[2], mag)
             var update = {
               z : [
                 [value], 
@@ -286,10 +339,16 @@
               ],
             }
 
+
             Plotly.restyle('myDiv', update, [0, 1, 2, 3, 4]);
         }
         function adjustValueY(value)
         {
+          defaultVector = [defaultVector[0], parseInt(value), defaultVector[2]]
+          mag = getMagnitude(defaultVector)
+          alpha = getCoordDirAngle(defaultVector[0], mag)
+          beta = getCoordDirAngle(defaultVector[1], mag)
+          gamma = getCoordDirAngle(defaultVector[2], mag)
           var update = {
               y : [
                 [value], 
@@ -304,6 +363,11 @@
         }
         function adjustValueX(value)
         {
+          defaultVector = [parseInt(value), defaultVector[1], defaultVector[2]]
+          mag = getMagnitude(defaultVector)
+          alpha = getCoordDirAngle(defaultVector[0], mag)
+          beta = getCoordDirAngle(defaultVector[1], mag)
+          gamma = getCoordDirAngle(defaultVector[2], mag)
           var update = {
               x : [
                 [value], 
@@ -325,7 +389,7 @@
   <d-appendix>
 
     <h3>Contributions</h3>
-    <p>The article was created in full by Shane Josias. Applied Maths colleagues gave all of the good feedback.</p>
+    <p>The article was created in full by Shane Josias. </p>
     <!-- <h3>Reviewers</h3> -->
     <!-- <p>Some text with links describing who reviewed the article.</p> -->
 
