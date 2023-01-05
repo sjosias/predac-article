@@ -63,6 +63,7 @@
     "intersection-observer": "^0.4.3",
     "jsdom-wc": "^11.0.0-alpha-1",
     "katex": "^0.8.3",
-    "plotly.js-dist": "^2.5.1"
+    "plotly.js-dist": "^2.5.1",
+    "three": "^0.137.5"
   }
 }
