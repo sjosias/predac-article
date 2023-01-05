@@ -193,15 +193,52 @@
       canvas.appendChild( renderer.domElement );
 
       //create a blue LineBasicMaterial
-      const material = new THREE.LineBasicMaterial( { color: 0x0000ff , linewidth: 20} );
-      const points = [];
-      points.push( new THREE.Vector3( - 30, 0, 0 ) );
-      points.push( new THREE.Vector3( 0, 30, 0 ) );
-      points.push( new THREE.Vector3( 30, 0, 0 ) );
+      var xAxis = new THREE.Vector3(50, 0, 0);
+      var xAxisHead = new THREE.Vector3(5, 0, 0);
 
-      const geometry = new THREE.BufferGeometry().setFromPoints( points );
-      const line = new THREE.Line( geometry, material );
-      scene.add( line );
+      const materialX = new THREE.MeshBasicMaterial( {color: 0x2874A6} );
+
+      var yAxis = new THREE.Vector3(0, 50, 0);
+      const materialY = new THREE.MeshBasicMaterial( {color: 0xB03A2E} );
+
+      var zAxis = new THREE.Vector3(0, 0, 50);
+      const materialZ = new THREE.MeshBasicMaterial( {color: 0x6C3483} );
+
+      radius = 0.7
+      var geometryX = new THREE.CylinderGeometry(radius, radius, xAxis.length(), 32, 4);
+      var geometryXHead = new THREE.CylinderGeometry(radius, radius*4, xAxisHead.length(), 32, 4);
+
+      var geometryY = new THREE.CylinderGeometry(radius, radius, yAxis.length(), 32, 4);
+      var geometryZ = new THREE.CylinderGeometry(radius, radius, zAxis.length(), 32, 4);
+
+      var cylinderX = new THREE.Mesh(geometryX, materialX);
+      var cylinderXHead = new THREE.Mesh(geometryXHead, materialX);
+
+      var cylinderY = new THREE.Mesh(geometryY, materialY);
+      var cylinderZ = new THREE.Mesh(geometryZ, materialZ);
+
+      var axis = new THREE.Vector3(0, 1, 0);
+      cylinderX.quaternion.setFromUnitVectors(axis, xAxis.clone().normalize());
+      cylinderX.position.copy(xAxis.clone().multiplyScalar(0.5));
+
+      cylinderXHead.quaternion.setFromUnitVectors(axis, xAxisHead.clone().normalize());
+      cylinderXHead.position.set(70,0,0);
+
+      cylinderY.quaternion.setFromUnitVectors(axis, yAxis.clone().normalize());
+      cylinderY.position.copy(yAxis.clone().multiplyScalar(0.5));
+
+      cylinderZ.quaternion.setFromUnitVectors(axis, zAxis.clone().normalize());
+      cylinderZ.position.copy(zAxis.clone().multiplyScalar(0.5));
+
+
+
+      scene.add( cylinderX ); // bleu
+      scene.add( cylinderXHead )
+      scene.add( cylinderY );
+      scene.add( cylinderZ );
+
+      const axesHelper = new THREE.AxesHelper( 70 );
+      scene.add( axesHelper );
       renderer.render( scene, camera );
 
       controls = new THREE.OrbitControls( camera, renderer.domElement );
