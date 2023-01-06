@@ -17,8 +17,10 @@
 
 <head>
   <script src="template.v2.js"></script>
-  <script src="three.js"></script>
+  <!-- <script src="three.js"></script>
   <script src="OrbitControls.js"></script>
+  <script src="CSS2DRenderer.js"></script> -->
+
 
 
   <!-- Load d3.js -->
@@ -176,6 +178,7 @@
    
     <div class='.l-screen' id='myDiv'  style='border: 1px solid rgba(0, 0, 0, 0.2);'><!-- Plotly chart will be drawn inside this DIV --></div>
     <script>
+      import * as THREE from 'three';
 
       const scene = new THREE.Scene();
       scene.background = new THREE.Color( 0xffffff );
@@ -185,7 +188,7 @@
       const canvasHeight = 0.5*canvasWidth //document.getElementById("myDiv").offsetHeight;
       console.log(canvasWidth + ' ' +  canvasHeight)
       const camera = new THREE.PerspectiveCamera( 75, canvasWidth / canvasHeight, 0.1, 1000 );
-      camera.position.set( 0, 0, 100 );
+      camera.position.set( 50, 50, 100 );
       camera.lookAt( 0, 0, 0 );
 
       const renderer = new THREE.WebGLRenderer();
@@ -195,47 +198,64 @@
       //create a blue LineBasicMaterial
       var xAxis = new THREE.Vector3(50, 0, 0);
       var xAxisHead = new THREE.Vector3(5, 0, 0);
-
       const materialX = new THREE.MeshBasicMaterial( {color: 0x2874A6} );
 
       var yAxis = new THREE.Vector3(0, 50, 0);
+      var yAxisHead = new THREE.Vector3(0, 5, 0);
       const materialY = new THREE.MeshBasicMaterial( {color: 0xB03A2E} );
 
       var zAxis = new THREE.Vector3(0, 0, 50);
+      var zAxisHead = new THREE.Vector3(0, 0, 5);
       const materialZ = new THREE.MeshBasicMaterial( {color: 0x6C3483} );
 
       radius = 0.7
+      var axis = new THREE.Vector3(0, 1, 0);
+
       var geometryX = new THREE.CylinderGeometry(radius, radius, xAxis.length(), 32, 4);
       var geometryXHead = new THREE.CylinderGeometry(radius, radius*4, xAxisHead.length(), 32, 4);
-
-      var geometryY = new THREE.CylinderGeometry(radius, radius, yAxis.length(), 32, 4);
-      var geometryZ = new THREE.CylinderGeometry(radius, radius, zAxis.length(), 32, 4);
-
       var cylinderX = new THREE.Mesh(geometryX, materialX);
       var cylinderXHead = new THREE.Mesh(geometryXHead, materialX);
-
-      var cylinderY = new THREE.Mesh(geometryY, materialY);
-      var cylinderZ = new THREE.Mesh(geometryZ, materialZ);
-
-      var axis = new THREE.Vector3(0, 1, 0);
       cylinderX.quaternion.setFromUnitVectors(axis, xAxis.clone().normalize());
       cylinderX.position.copy(xAxis.clone().multiplyScalar(0.5));
-
       cylinderXHead.quaternion.setFromUnitVectors(axis, xAxisHead.clone().normalize());
-      cylinderXHead.position.set(70,0,0);
+      cylinderXHead.position.set(xAxis.x,0,0);
 
+
+      var geometryY = new THREE.CylinderGeometry(radius, radius, yAxis.length(), 32, 4);
+      var geometryYHead = new THREE.CylinderGeometry(radius, radius*4, yAxisHead.length(), 32, 4);
+      var cylinderY = new THREE.Mesh(geometryY, materialY);
+      var cylinderYHead = new THREE.Mesh(geometryYHead, materialY);
       cylinderY.quaternion.setFromUnitVectors(axis, yAxis.clone().normalize());
       cylinderY.position.copy(yAxis.clone().multiplyScalar(0.5));
+      cylinderYHead.quaternion.setFromUnitVectors(axis, yAxisHead.clone().normalize());
+      cylinderYHead.position.set(0,yAxis.y,0);
+
+
+      var geometryZ = new THREE.CylinderGeometry(radius, radius, zAxis.length(), 32, 4);
+      var geometryZHead = new THREE.CylinderGeometry(radius, radius*4, zAxisHead.length(), 32, 4);
+      var cylinderZ = new THREE.Mesh(geometryZ, materialZ);
+      var cylinderZHead = new THREE.Mesh(geometryZHead, materialZ);
+
 
       cylinderZ.quaternion.setFromUnitVectors(axis, zAxis.clone().normalize());
       cylinderZ.position.copy(zAxis.clone().multiplyScalar(0.5));
-
+      cylinderZHead.quaternion.setFromUnitVectors(axis, zAxisHead.clone().normalize());
+      cylinderZHead.position.set(0,0,zAxis.z);
 
 
       scene.add( cylinderX ); // bleu
-      scene.add( cylinderXHead )
+      scene.add( cylinderXHead );
       scene.add( cylinderY );
+      scene.add( cylinderYHead )
       scene.add( cylinderZ );
+      scene.add( cylinderZHead )
+
+
+      const earthDiv = document.createElement( 'div' );
+      earthDiv.className = 'label';
+      earthDiv.textContent = 'Earth';
+      earthDiv.style.marginTop = '-1em';
+      const earthLabel = new THREE.CSS2DObject( earthDiv );
 
       const axesHelper = new THREE.AxesHelper( 70 );
       scene.add( axesHelper );
